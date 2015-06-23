@@ -30,11 +30,11 @@ public class StockManagerController {
 		menuBar.addSaveToFileListener(new AddSaveToFileHandler());
 		
 		for(Product products : model.getProducts()){
-			addProductToTable(products.getProductID(), products.getProductName(), products.getProductQuantity());
+			addProductToTable(products.getProductID(), 
+					products.getProductName(), 
+					products.getProductQuantity());
 		}
-		
-		
-		
+			
 	}
 	
 	public void addProductToTable(String productID, String productName, int productQuantity){
@@ -52,8 +52,7 @@ public class StockManagerController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			view.showAddProductFrame();
-			addProduct = view.getProductFrame();
-			
+			addProduct = view.getProductFrame();		
 			addProduct.getProductPanel().addProductListener(new AddProductPanelHandler());
 			addProduct.getProductPanel().addCancelListener(new AddCancelProductHandler());
 			

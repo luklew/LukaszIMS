@@ -18,6 +18,7 @@ public class StockManager {
 		//db.createEntry();
 		db.updateDB();
 		db.readDB();
+		db.closeDB();
 		
 	}
 	

@@ -34,6 +34,20 @@ public class DatabaseConnection {
 	}
 	
 	public void closeDB(){
+		try{
+			if(stmt != null)
+				conn.close();
+		}catch(SQLException se){
+				se.printStackTrace();
+			}
+		try{
+			if (conn != null)
+				conn.close();		
+			System.out.println("DB connection closed");
+		}catch(SQLException se){
+			se.printStackTrace();			
+			}
+		
 		
 	}
 
