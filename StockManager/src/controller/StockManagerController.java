@@ -64,8 +64,7 @@ public class StockManagerController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
-			
+			model.saveReportToFile();
 		}
 		
 	}
