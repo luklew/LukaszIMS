@@ -1,3 +1,7 @@
+/**
+ * Class which contains methods to CRUD database.
+ */
+
 package model;
 
 import java.sql.Connection;
@@ -5,8 +9,17 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Random;
 
 public class DatabaseConnection {
+	
+	private String[] gnomeNames =  {"Hippy Gnome", "King Gnome", "Queen Gnome", "Nuclear Gnome", "Biohazard Gnome", "Obama Gnome", "Redneck Gnome", "Business Gnome", 
+			"Chav Gnome", "Beiber Gnome", "Potter Gnome", "Wolverine Gnome", "Iron Man Gnome", "Voldemort Gnome", "Jedi Gnome", "Sith Gnome", "Picard Gnome", "Angel Gnome", "Gun Gnome", 
+			"Big Gun Gnome",  "Bazooka Gnome", "Tank Gnome", "Police Gnome",
+			"Other Gnome", "Greek Gnome", "Roman Gnome", "Chewbacca Gnome", "Time Lord Gnome"
+			,"Samurai Gnome" , "Demon Gnome", "Insane Gnome", "Australian Gnome", "French Gnome"};
+	
+	private Random rnd;
 	
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	static final String DB_URL = "jdbc:mysql://localhost/IMS";
@@ -17,7 +30,7 @@ public class DatabaseConnection {
 	private Connection conn;
 	
 	public DatabaseConnection(){
-
+		rnd = new Random();
 	}
 	
 	public void accessDB(){
@@ -55,9 +68,11 @@ public class DatabaseConnection {
 		System.out.println("Inserting records into table");
 		try {
 			stmt = conn.createStatement();
-			String sql = "INSERT INTO Product" + " VALUES (30, 'Gnome', 20)";
+			for(int i = 0; i < 33; i++){
+			String sql = "INSERT INTO Product" + " VALUES (" + i + ", '" + gnomeNames[i] +"', " + rnd.nextInt(100) +")";
 			stmt.executeUpdate(sql);
 			System.out.println("Inserted into tables");
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

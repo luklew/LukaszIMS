@@ -23,8 +23,7 @@ public class Product {
 		this.productQuantity = productQuantity;
 
 	}
-	
-	
+		
 	public String getProductID(){
 		return productID;
 	}

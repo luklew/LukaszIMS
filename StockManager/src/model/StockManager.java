@@ -7,16 +7,18 @@ public class StockManager {
 	private ArrayList<Product> product = new ArrayList<Product>();
 	private DatabaseConnection db;
 	
+
 	public StockManager(){
 		for(int i = 0; i <= 50; i++ ){
 			product.add(new Product());
 		}
+			
 		
 		db = new DatabaseConnection();
 		db.accessDB();
 		
-		//db.createEntry();
-		db.updateDB();
+		db.createEntry();
+		//db.updateDB();
 		db.readDB();
 		db.closeDB();
 		
