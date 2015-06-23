@@ -11,7 +11,7 @@ public class MenuBarGUI extends JMenuBar{
 
 	private static final long serialVersionUID = 1L;
 	private JMenu file;
-	private JMenuItem simMode, addProduct;
+	private JMenuItem simMode, addProduct, saveToFile;
 	
 
 	public MenuBarGUI(){
@@ -21,6 +21,9 @@ public class MenuBarGUI extends JMenuBar{
 	     	     
 	     addProduct = new JMenuItem("Add Product");
 	     file.add(addProduct);
+	     
+	     saveToFile = new JMenuItem("Save Report");
+	     file.add(saveToFile);
 	     
 	     file.addSeparator();
 	    
@@ -33,6 +36,10 @@ public class MenuBarGUI extends JMenuBar{
 
 	public void addProductListener(ActionListener al){
 		addProduct.addActionListener(al);
+	}
+	
+	public void addSaveToFileListener(ActionListener al){
+		saveToFile.addActionListener(al);
 	}
 	
 	public void addSimModeListener(ActionListener al){

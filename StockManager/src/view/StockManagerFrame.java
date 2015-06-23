@@ -12,6 +12,7 @@ public class StockManagerFrame extends JFrame{
 	
 	private MenuBarGUI menuBar;
 	private StockList stockList;
+	private AddProductFrame addProduct;
 
 	public StockManagerFrame(){
 		this.setTitle("Stock Manager");
@@ -26,21 +27,27 @@ public class StockManagerFrame extends JFrame{
 
 		stockList = new StockList();
 		stockListPnl.add(stockList);
-		this.add(stockList);
-		
-		
+		this.add(stockList);	
 		
 		this.pack();
 		this.setVisible(true);
 				
 	}
 	
+	public void showAddProductFrame(){
+		addProduct = new AddProductFrame();
+	}
+	
+	public AddProductFrame getProductFrame(){
+		return addProduct;
+	}
+	
 	public StockList getStockList(){
 		return stockList;
 	}
 	
-	/*public MenuBarGUI getMenuBar(){
-		//return menuBar;
-	}*/
+	public MenuBarGUI getMenuBarGUI(){
+		return menuBar;
+	}
 
 }
