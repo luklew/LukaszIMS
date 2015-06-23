@@ -9,19 +9,23 @@ public class StockManager {
 	
 
 	public StockManager(){
-		for(int i = 0; i <= 50; i++ ){
+		/*for(int i = 0; i <= 50; i++ ){
 			product.add(new Product());
-		}
+		}*/
 			
-		
 		db = new DatabaseConnection();
 		db.accessDB();
 		
-		db.createEntry();
+		//db.createEntry();
 		//db.updateDB();
 		db.readDB();
 		db.closeDB();
 		
+		for(int i = 0; i <= db.getProductIDs().size() -1 ; i++){
+			addProduct(Integer.toString(db.getProductIDs().get(i)),
+					db.getProductNames().get(i), 
+					db.getProductQuantities().get(i));
+		}
 	}
 	
 	public ArrayList<Product> getProducts(){

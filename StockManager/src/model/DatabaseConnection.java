@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class DatabaseConnection {
@@ -26,11 +27,19 @@ public class DatabaseConnection {
 	static final String USER = "LL";
 	static final String PASS = "root";
 	
+	private ArrayList<Integer> productID;
+	private ArrayList<String> productName;
+	private ArrayList<Integer> productQuantity;
+	
 	private Statement stmt;
 	private Connection conn;
 	
 	public DatabaseConnection(){
-		rnd = new Random();
+		productID = new ArrayList<Integer>();
+		productName = new ArrayList<String>();
+		productQuantity = new ArrayList<Integer>();
+		
+		//rnd = new Random();
 	}
 	
 	public void accessDB(){
@@ -69,7 +78,7 @@ public class DatabaseConnection {
 		try {
 			stmt = conn.createStatement();
 			for(int i = 0; i < 33; i++){
-			String sql = "INSERT INTO Product" + " VALUES (" + i + ", '" + gnomeNames[i] +"', " + rnd.nextInt(100) +")";
+			String sql = "INSERT INTO Product" + " VALUES (" + (i+1) + ", '" + gnomeNames[i] +"', " + rnd.nextInt(100) +")";
 			stmt.executeUpdate(sql);
 			System.out.println("Inserted into tables");
 			}
@@ -85,11 +94,14 @@ public class DatabaseConnection {
 			stmt = conn.createStatement();
 			String sql = "SELECT ProductID, ProductName, ProductQuantity FROM Product";
 			ResultSet rs = stmt.executeQuery(sql);
+			int i = 0;
 			while(rs.next()){
-				int id = rs.getInt("ProductID");
-				String name = rs.getString("ProductName");
-				int quantity = rs.getInt("ProductQuantity");
-				System.out.println(id + " " + name + " " + quantity);
+				productID.add(rs.getInt("ProductID"));
+				productName.add(rs.getString("ProductName"));
+				productQuantity.add(rs.getInt("ProductQuantity"));
+				System.out.println(productID.get(i) + " " + 
+				productName.get(i) + " " + productQuantity.get(i));
+				i++;
 			}
 			rs.close();
 		} catch (SQLException e) {
@@ -123,5 +135,16 @@ public class DatabaseConnection {
 		}
 	}
 	
+	public ArrayList<Integer> getProductIDs(){
+		return productID;
+	}
+	
+	public ArrayList<String> getProductNames(){
+		return productName;
+	}
+	
+	public ArrayList<Integer> getProductQuantities(){
+		return productQuantity;
+	}
 	
 }
