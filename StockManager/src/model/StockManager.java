@@ -12,9 +12,6 @@ public class StockManager {
 	
 
 	public StockManager(){
-		/*for(int i = 0; i <= 50; i++ ){
-			product.add(new Product());
-		}*/
 			
 		db = new DatabaseConnection();
 		db.accessDB();
@@ -45,13 +42,47 @@ public class StockManager {
 	
 	public void saveReportToFile(){
 		try{
-			String report = "";
+			int numOfChars;
+			int totalSpacesLeft;
+			
+			String report = "Stock Report \r\n";
+			report += "---ID-------Product Name----------Quantity--\r\n";
 			File reportFile = new File("Report.txt");
 			for(int i = 0; i <= product.size() -1; i++){
-				report += product.get(i).getProductID() + " " + 
-						product.get(i).getProductName() + " " + 
-						product.get(i).getProductQuantity() + " \n";
+				totalSpacesLeft = 20 ;
+				
+				if(i < 9){
+					report += "|  " + product.get(i).getProductID() + "   |";
+				}
+				else if(i > 8 && i < 100){
+					report += "|  " + product.get(i).getProductID() + "  |";
+				}
+				
+				report += "   " + product.get(i).getProductName() ;
+				
+				numOfChars = product.get(i).getProductName().length();			
+				totalSpacesLeft = totalSpacesLeft - numOfChars;
+				
+				for(int whiteSpace = 0; whiteSpace <= totalSpacesLeft; whiteSpace++){
+					report += " ";
+				}
+				
+				report += "|    ";
+				
+				if(product.get(i).getProductQuantity() < 9){
+					report +=  product.get(i).getProductQuantity() + "     |";
+				}
+				else if(product.get(i).getProductQuantity() > 8 && product.get(i).getProductQuantity() < 100){
+					report +=  product.get(i).getProductQuantity() + "    |" ;
+				}
+				
+				report += "\r\n";
+					/*report += "|   " + product.get(i).getProductID() + "  |  " + 
+						product.get(i).getProductName() + "  |  " + 
+						product.get(i).getProductQuantity() + " \r\n";*/
 			}
+			
+			System.out.println(report);
 			FileWriter fw = new FileWriter(reportFile);
 			fw.write(report);
 			fw.close();

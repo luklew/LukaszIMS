@@ -1,5 +1,5 @@
 /**
- * Class which contains methods to CRUD database.
+ * Class which contains methods to CRUD and close database.
  */
 
 package model;
