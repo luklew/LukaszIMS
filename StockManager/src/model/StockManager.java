@@ -14,8 +14,7 @@ public class StockManager {
 	public StockManager(){
 			
 		db = new DatabaseConnection();
-		db.accessDB();
-		
+		db.accessDB();	
 		//db.createEntry();
 		//db.updateDB();
 		db.readDB();
@@ -46,16 +45,18 @@ public class StockManager {
 			int totalSpacesLeft;
 			
 			String report = "Stock Report \r\n";
-			report += "---ID-------Product Name----------Quantity--\r\n";
+			report += "\r\n";
+			report += "|---ID---|------Product Name------|-Quantity-|\r\n";
+			report += "\r\n";
 			File reportFile = new File("Report.txt");
 			for(int i = 0; i <= product.size() -1; i++){
 				totalSpacesLeft = 20 ;
 				
 				if(i < 9){
-					report += "|  " + product.get(i).getProductID() + "   |";
+					report += "|   " + product.get(i).getProductID() + "    |";
 				}
 				else if(i > 8 && i < 100){
-					report += "|  " + product.get(i).getProductID() + "  |";
+					report += "|   " + product.get(i).getProductID() + "   |";
 				}
 				
 				report += "   " + product.get(i).getProductName() ;
@@ -75,7 +76,13 @@ public class StockManager {
 				else if(product.get(i).getProductQuantity() > 8 && product.get(i).getProductQuantity() < 100){
 					report +=  product.get(i).getProductQuantity() + "    |" ;
 				}
+				else if(product.get(i).getProductQuantity() > 99 && product.get(i).getProductQuantity() < 1000){
+					report +=  product.get(i).getProductQuantity() + "   |" ;
+				}
 				
+				report += "\r\n";
+				
+				report += "_____________________________________________";
 				report += "\r\n";
 
 			}
