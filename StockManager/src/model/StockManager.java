@@ -77,9 +77,7 @@ public class StockManager {
 				}
 				
 				report += "\r\n";
-					/*report += "|   " + product.get(i).getProductID() + "  |  " + 
-						product.get(i).getProductName() + "  |  " + 
-						product.get(i).getProductQuantity() + " \r\n";*/
+
 			}
 			
 			System.out.println(report);
