@@ -41,9 +41,13 @@ public class StockManagerController {
 		stockList.addProductToTable(productID, productName, productQuantity);
 	}
 	
-	public void getLastAndAddProduct(){
+	public void getLastAndAddProduct(){ 	System.out.println("enter");	
 		Product product = model.getLastAddedProduct();
+		System.out.println("get products");
 		addProductToTable(product.getProductID(), product.getProductName(), product.getProductQuantity());
+		System.out.println("add to table");
+		model.insertNewRow(Integer.parseInt(product.getProductID()), product.getProductName(), product.getProductQuantity());
+		System.out.println("test");
 	}
 	
 	//MENU BAR
@@ -87,8 +91,8 @@ public class StockManagerController {
 			model.addProduct(addProduct.getProductPanel().getProductId(), 
 					addProduct.getProductPanel().getProductName(), 
 					addProduct.getProductPanel().getProductQuantity());
-			
 			getLastAndAddProduct();
+  
 		}
 		
 	}

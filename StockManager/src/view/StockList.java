@@ -1,10 +1,15 @@
 package view;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 public class StockList extends JPanel{
 	
@@ -22,7 +27,22 @@ public class StockList extends JPanel{
 				return false;
 	    	}
 		};
-		stockListTable = new JTable(tableModel);
+		stockListTable = new JTable(tableModel){
+	        @Override
+	        public Component prepareRenderer(TableCellRenderer renderer, int rowIndex,
+	                int columnIndex) {
+	            JComponent component = (JComponent) super.prepareRenderer(renderer, rowIndex, columnIndex);  
+
+	            if(getValueAt(rowIndex, 0).toString().equalsIgnoreCase("java") && columnIndex == 0) {
+	                component.setBackground(Color.RED);
+	            } else if(getValueAt(rowIndex, 1).toString().equalsIgnoreCase("j2ee") && columnIndex == 1){
+	                component.setBackground(Color.GREEN);
+	            }
+
+	            return component;
+	        }
+	    };
+	    
 		JScrollPane scrollPane = new JScrollPane(stockListTable);
 		scrollPane.setPreferredSize(new Dimension(500,700));
 		

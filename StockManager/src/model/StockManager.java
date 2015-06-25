@@ -19,8 +19,7 @@ public class StockManager {
 		//db.updateDB();
 		db.readDB();
 		
-		db.insertToDb(50, "test", 50);
-		db.closeDB();
+		//db.closeDB();
 		
 		for(int i = 0; i <= db.getProductIDs().size() - 1 ; i++){
 			addProduct(Integer.toString(db.getProductIDs().get(i)),
@@ -41,24 +40,35 @@ public class StockManager {
 		return product.get(product.size() - 1);
 	}
 	
+	public void insertNewRow(int productID, String productName, int productQuantity){
+		db.insertToDb(productID, productName, productQuantity);
+	}
+	
 	public void saveReportToFile(){
 		try{
 			int numOfChars;
 			int totalSpacesLeft;
+			int productID;
+			int productQuantity;
 			
 			String report = "Stock Report \r\n";
 			report += "\r\n";
-			report += "|---ID---|------Product Name------|-Quantity-|\r\n";
+			report += "|----ID----|------Product Name------|-Quantity-|\r\n";
 			report += "\r\n";
 			File reportFile = new File("Report.txt");
 			for(int i = 0; i <= product.size() -1; i++){
 				totalSpacesLeft = 20 ;
-				
-				if(i < 9){
-					report += "|   " + product.get(i).getProductID() + "    |";
+				productID = Integer.parseInt(product.get(i).getProductID());
+				productQuantity = product.get(i).getProductQuantity();
+
+				if(productID < 10){
+					report += "|  " + product.get(i).getProductID() + "       |";
 				}
-				else if(i > 8 && i < 100){
-					report += "|   " + product.get(i).getProductID() + "   |";
+				else if(productID > 9 && productID < 100){
+					report += "|  " + product.get(i).getProductID() + "      |";
+				}
+				else if(productID > 99 && productID < 1000){
+					report += "|  " + product.get(i).getProductID() + "     |";
 				}
 				
 				report += "   " + product.get(i).getProductName() ;
@@ -70,21 +80,23 @@ public class StockManager {
 					report += " ";
 				}
 				
-				report += "|    ";
+				report += "|  ";
 				
-				if(product.get(i).getProductQuantity() < 9){
-					report +=  product.get(i).getProductQuantity() + "     |";
+				if(productQuantity < 9){
+					report +=  productQuantity + "       |";
 				}
-				else if(product.get(i).getProductQuantity() > 8 && product.get(i).getProductQuantity() < 100){
-					report +=  product.get(i).getProductQuantity() + "    |" ;
+				else if(productQuantity > 8 && productQuantity < 100){
+					report +=  product.get(i).getProductQuantity() + "      |" ;
 				}
 				else if(product.get(i).getProductQuantity() > 99 && product.get(i).getProductQuantity() < 1000){
-					report +=  product.get(i).getProductQuantity() + "   |" ;
+					report +=  product.get(i).getProductQuantity() + "     |" ;
+				}
+				else if(product.get(i).getProductQuantity() > 999 && product.get(i).getProductQuantity() < 10000){
+					report +=  product.get(i).getProductQuantity() + "     |" ;
 				}
 				
 				report += "\r\n";
 				
-				report += "_____________________________________________";
 				report += "\r\n";
 
 			}
