@@ -110,11 +110,24 @@ public class DatabaseConnection {
 		}
 	}
 	
-	public void updateDB(){
+	public void updateDB(int productID, String productName, int productQuantity){
 		System.out.println("Updating tables...");
 		try {
 			stmt = conn.createStatement();
 			String sql = "UPDATE Product " + "SET ProductQuantity = 50 WHERE ProductID = 25";
+			stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void insertToDb(int productID, String productName, int productQuantity){
+		System.out.println("Inserting tables...");
+		try {
+			stmt = conn.createStatement();
+			String sql = "INSERT INTO Product VALUES (" + productID +", '" + productName + "', " + productQuantity + ")";
 			stmt.executeUpdate(sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

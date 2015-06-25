@@ -18,6 +18,8 @@ public class StockManager {
 		//db.createEntry();
 		//db.updateDB();
 		db.readDB();
+		
+		db.insertToDb(50, "test", 50);
 		db.closeDB();
 		
 		for(int i = 0; i <= db.getProductIDs().size() - 1 ; i++){
