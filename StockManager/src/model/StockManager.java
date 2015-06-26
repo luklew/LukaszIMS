@@ -64,12 +64,17 @@ public class StockManager {
 				if(productID < 10){
 					report += "|  " + product.get(i).getProductID() + "       |";
 				}
-				else if(productID > 9 && productID < 100){
+				else if(productID  > 9 && productID < 100){
 					report += "|  " + product.get(i).getProductID() + "      |";
 				}
 				else if(productID > 99 && productID < 1000){
 					report += "|  " + product.get(i).getProductID() + "     |";
 				}
+				else if(productID > 999 && productID < 10000){
+					report += "|  " + product.get(i).getProductID() + "    |";
+				}
+				
+
 				
 				report += "   " + product.get(i).getProductName() ;
 				
