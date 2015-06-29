@@ -1,9 +1,13 @@
 package view;
 
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.MenuBar;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class StockManagerFrame extends JFrame{
@@ -12,6 +16,7 @@ public class StockManagerFrame extends JFrame{
 	
 	private MenuBarGUI menuBar;
 	private StockList stockList;
+	private InfoPanel infoPanel;
 	private AddProductFrame addProduct;
 
 	public StockManagerFrame(){
@@ -19,15 +24,34 @@ public class StockManagerFrame extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setPreferredSize(new Dimension(550,800));
 		
-		
+		this.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+				
 		menuBar = new MenuBarGUI();
 		this.setJMenuBar(menuBar);
+		
+		
 		
 		JPanel stockListPnl = new JPanel();
 
 		stockList = new StockList();
 		stockListPnl.add(stockList);
-		this.add(stockList);	
+		//this.add(stockList);	
+		
+		c.fill = GridBagConstraints.VERTICAL;
+		c.insets = new Insets(5,5,5,5);
+		c.gridx = 0;
+		c.gridy = 0;
+		this.add(stockList, c);
+		
+		
+		infoPanel = new InfoPanel();
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.insets = new Insets(5,5,5,5);
+		c.gridx = 1;
+		c.gridy = 0;
+		this.add(infoPanel, c);
+		
 		
 		this.pack();
 		this.setVisible(true);

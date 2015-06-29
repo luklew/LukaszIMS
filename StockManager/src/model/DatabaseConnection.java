@@ -24,8 +24,8 @@ public class DatabaseConnection {
 	
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	static final String DB_URL = "jdbc:mysql://localhost/IMS";
-	static final String USER = "LL";
-	static final String PASS = "root";
+	static final String USER = "root";
+	static final String PASS = "qwerty1";
 	
 	private ArrayList<Integer> productID;
 	private ArrayList<String> productName;
@@ -39,7 +39,7 @@ public class DatabaseConnection {
 		productName = new ArrayList<String>();
 		productQuantity = new ArrayList<Integer>();
 		
-		//rnd = new Random();
+		rnd = new Random();
 	}
 	
 	public void accessDB(){

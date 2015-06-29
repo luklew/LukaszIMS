@@ -30,7 +30,7 @@ public class StockList extends JPanel{
 	    	}
 		};
 		stockListTable = new JTable(tableModel);
-		
+					
 		stockListTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
 		    @Override
 		    public Component getTableCellRendererComponent(JTable table,
