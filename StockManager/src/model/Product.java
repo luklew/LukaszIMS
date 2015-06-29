@@ -7,7 +7,7 @@ public class Product {
 	private String productID;
 	private String productName;
 	private int productQuantity;
-	private int threshold;
+	private int orderThreshold;
 	private Random rand;
 	
 	public Product(){

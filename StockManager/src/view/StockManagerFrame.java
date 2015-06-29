@@ -18,6 +18,7 @@ public class StockManagerFrame extends JFrame{
 	private StockList stockList;
 	private InfoPanel infoPanel;
 	private AddProductFrame addProduct;
+	private StockOrderTable orderTable;
 
 	public StockManagerFrame(){
 		this.setTitle("Stock Manager");
@@ -30,8 +31,6 @@ public class StockManagerFrame extends JFrame{
 		menuBar = new MenuBarGUI();
 		this.setJMenuBar(menuBar);
 		
-		
-		
 		JPanel stockListPnl = new JPanel();
 
 		stockList = new StockList();
@@ -42,6 +41,7 @@ public class StockManagerFrame extends JFrame{
 		c.insets = new Insets(5,5,5,5);
 		c.gridx = 0;
 		c.gridy = 0;
+		//c.gridheight = 1 ; 
 		this.add(stockList, c);
 		
 		
@@ -52,6 +52,12 @@ public class StockManagerFrame extends JFrame{
 		c.gridy = 0;
 		this.add(infoPanel, c);
 		
+		orderTable = new StockOrderTable();
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.insets = new Insets(5,5,5,5);
+		c.gridx = 1;
+		c.gridy = 1;
+		this.add(orderTable, c);
 		
 		this.pack();
 		this.setVisible(true);

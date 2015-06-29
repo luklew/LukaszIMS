@@ -30,9 +30,14 @@ public class StockList extends JPanel{
 	    	}
 		};
 		stockListTable = new JTable(tableModel);
+		
+		stockListTable.getTableHeader().setReorderingAllowed(false);
 					
 		stockListTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
-		    @Override
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
 		    public Component getTableCellRendererComponent(JTable table,
 		            Object value, boolean isSelected, boolean hasFocus, int row, int col) {
 
