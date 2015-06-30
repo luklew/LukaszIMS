@@ -24,8 +24,8 @@ public class DatabaseConnection {
 	
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	static final String DB_URL = "jdbc:mysql://localhost/IMS";
-	static final String USER = "root";
-	static final String PASS = "qwerty1";
+	static final String USER = "LL";
+	static final String PASS = "root";
 	
 	private ArrayList<Integer> productID;
 	private ArrayList<String> productName;
@@ -112,11 +112,11 @@ public class DatabaseConnection {
 		}
 	}
 	
-	public void updateDB(int productID, String productName, int productQuantity){
-		System.out.println("Updating tables...");
+	public void updateDB(int productID, int productQuantity){
+		System.out.println("Updating quantity...");
 		try {
 			stmt = conn.createStatement();
-			String sql = "UPDATE Product " + "SET ProductQuantity = 50 WHERE ProductID = 25";
+			String sql = "UPDATE Product " + "SET ProductQuantity = " + productQuantity + "  WHERE ProductID = " + productID ;
 			stmt.executeUpdate(sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

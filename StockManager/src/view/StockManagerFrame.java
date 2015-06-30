@@ -89,5 +89,9 @@ public class StockManagerFrame extends JFrame{
 	public InfoPanel getInfoPanel(){
 		return infoPanel;
 	}
+	
+	public StockOrderTable getOrderTable(){
+		return orderTable;
+	}
 
 }

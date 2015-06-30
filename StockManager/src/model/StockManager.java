@@ -54,6 +54,14 @@ public class StockManager {
 		db.insertToDb(productID, productName, productQuantity);
 	}
 	
+	public void updateQuantity(String productID, int quantity){
+		db.updateDB(Integer.parseInt(productID), quantity);
+	}
+	
+	public void updateTableQuantity(int quantity){
+		
+	}
+	
 	public void saveReportToFile(){
 		try{
 			int numOfChars;

@@ -1,8 +1,10 @@
 package view;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -14,7 +16,7 @@ public class InfoPanel extends JPanel{
 	private JLabel productQuantity, productName, productID, productThreshold, orderRequired;
 	private JTextField p_ID, p_Name, p_Quan;
 	private JLabel p_Thresh, p_OrderReq;
-	private JButton changeThres, orderStock;
+	private JButton changeThres, orderStock, changeQuan;
 	
 	public InfoPanel(){
 		productQuantity = new JLabel("Quantity : ");
@@ -30,11 +32,15 @@ public class InfoPanel extends JPanel{
 		p_OrderReq = new JLabel("");
 		
 		p_ID.setEnabled(false);
+		p_ID.setDisabledTextColor(Color.BLACK);
 		p_Name.setEnabled(false);
+		p_Name.setDisabledTextColor(Color.BLACK);
 		p_Quan.setEnabled(false);
+		p_Quan.setDisabledTextColor(Color.BLACK);
 		
 		changeThres = new JButton("Change Threshold");
 		orderStock = new JButton("Order Stock");
+		changeQuan = new JButton("Change Quantity");
 		
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -77,34 +83,40 @@ public class InfoPanel extends JPanel{
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(5,5,5,5);
-		c.gridx = 0;
+		c.gridx = 1;
 		c.gridy = 3;
+		this.add(changeQuan, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.insets = new Insets(5,5,5,5);
+		c.gridx = 0;
+		c.gridy = 4;
 		this.add(productThreshold, c);
 
 		c.insets = new Insets(5,5,5,5);
 		c.gridx = 1;
-		c.gridy = 3;
+		c.gridy = 4;
 		this.add(p_Thresh, c);
 		
 		c.insets = new Insets(5,5,5,5);
 		c.gridx = 1;
-		c.gridy = 4;
+		c.gridy = 5;
 		//c.weightx = 0.5;
 		this.add(changeThres, c);
 				
 		c.insets = new Insets(5,5,5,5);
 		c.gridx = 0;
-		c.gridy = 5;
+		c.gridy = 6;
 		this.add(orderRequired, c);
 		
 		c.insets = new Insets(5,5,5,5);
 		c.gridx = 1;
-		c.gridy = 5;
+		c.gridy = 6;
 		this.add(p_OrderReq, c);
 		
 		c.insets = new Insets(5,5,5,5);
 		c.gridx = 1;
-		c.gridy = 6;
+		c.gridy = 7;
 		this.add(orderStock, c);
 		
 	}
@@ -129,5 +141,12 @@ public class InfoPanel extends JPanel{
 		p_OrderReq.setText(order);
 	}
 	
+	public void addThresholdListener(ActionListener al){
+		changeThres.addActionListener(al);
+	}
+	
+	public void addQuantityListener(ActionListener al){
+		changeQuan.addActionListener(al);
+	}
 	
 }

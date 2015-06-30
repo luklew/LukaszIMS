@@ -41,5 +41,18 @@ public class StockOrderTable extends JPanel{
 		DefaultTableModel model = (DefaultTableModel) orderTable.getModel();
 		model.addRow(new Object[]{productID, productName, Integer.toString(productQuantity)});
 	}
+	
+	public void deleteProductFromTable(String productID){
+		for(int i = 0; i < orderTable.getRowCount() ; i++){
+			if(productID.equals(orderTable.getValueAt(i, 0))){
+				DefaultTableModel model = (DefaultTableModel) orderTable.getModel();
+				model.removeRow(i);
+			}
+		}
+	}
 
+	public JTable getOrderTable(){
+		return orderTable;
+	}
+	
 }
