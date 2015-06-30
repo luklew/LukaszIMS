@@ -22,6 +22,7 @@ public class Product {
 		this.productID = productID;
 		this.productName = productName;
 		this.productQuantity = productQuantity;
+		this.orderThreshold = 20;
 
 	}
 		
@@ -37,6 +38,10 @@ public class Product {
 		return productQuantity;	
 	}
 	
+	public int getOrderThreshold(){
+		return orderThreshold;
+	}
+	
 	public void setProductID(String productID){
 		this.productID = productID;
 	}
@@ -49,5 +54,8 @@ public class Product {
 		this.productQuantity = productQuantity;
 	}
 	
+	public void setOrderThreshold(int thres){
+		this.orderThreshold = thres;
+	}
 
 }

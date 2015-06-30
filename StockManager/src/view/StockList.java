@@ -8,6 +8,8 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -22,6 +24,7 @@ public class StockList extends JPanel{
 
 	public StockList(){
 		
+		
 		tableModel = new DefaultTableModel(columnNames, 0){ 
 			private static final long serialVersionUID = 1L ;
 			public boolean isCellEditable(int row, int column)
@@ -33,29 +36,7 @@ public class StockList extends JPanel{
 		
 		stockListTable.getTableHeader().setReorderingAllowed(false);
 					
-		stockListTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
-
-			private static final long serialVersionUID = 1L;
-
-			@Override
-		    public Component getTableCellRendererComponent(JTable table,
-		            Object value, boolean isSelected, boolean hasFocus, int row, int col) {
-
-		        super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
-
-		        String quantity = (String)table.getModel().getValueAt(row, 2);
-		        
-		        if (Integer.parseInt(quantity) < 25) {
-		            setBackground(Color.RED);
-		            setForeground(Color.WHITE);
-		        } else {
-		            setBackground(table.getBackground());
-		            setForeground(table.getForeground()); 
-		        }       
-		        return this;
-		    }   
-		});
-	    
+			    
 		JScrollPane scrollPane = new JScrollPane(stockListTable);
 		scrollPane.setPreferredSize(new Dimension(500,700));
 		
@@ -72,5 +53,7 @@ public class StockList extends JPanel{
 		model.addRow(new Object[]{productID, productName, Integer.toString(productQuantity)});
 	}
 	 
-	
+	public JTable getTable(){
+		return stockListTable;
+	}
 }

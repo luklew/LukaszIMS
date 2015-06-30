@@ -109,4 +109,25 @@ public class InfoPanel extends JPanel{
 		
 	}
 
+	public void setProductID(String id){
+		p_ID.setText(id);
+	}
+	
+	public void setProductName(String name){
+		p_Name.setText(name);
+	}
+	
+	public void setProductQuantity(String quan){
+		p_Quan.setText(quan);
+	}
+	
+	public void setProductThres(String thres){
+		p_Thresh.setText(thres);
+	}
+	
+	public void setProductOrderReq(String order){
+		p_OrderReq.setText(order);
+	}
+	
+	
 }

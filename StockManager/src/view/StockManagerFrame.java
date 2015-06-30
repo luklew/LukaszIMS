@@ -9,6 +9,7 @@ import java.awt.MenuBar;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 public class StockManagerFrame extends JFrame{
 
@@ -23,7 +24,7 @@ public class StockManagerFrame extends JFrame{
 	public StockManagerFrame(){
 		this.setTitle("Stock Manager");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setPreferredSize(new Dimension(550,800));
+		this.setPreferredSize(new Dimension(950,800));
 		
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -41,7 +42,7 @@ public class StockManagerFrame extends JFrame{
 		c.insets = new Insets(5,5,5,5);
 		c.gridx = 0;
 		c.gridy = 0;
-		//c.gridheight = 1 ; 
+		c.gridheight = 2 ; 
 		this.add(stockList, c);
 		
 		
@@ -50,14 +51,19 @@ public class StockManagerFrame extends JFrame{
 		c.insets = new Insets(5,5,5,5);
 		c.gridx = 1;
 		c.gridy = 0;
+		c.gridheight = 1 ; 
 		this.add(infoPanel, c);
-		
+				
 		orderTable = new StockOrderTable();
+		
+		JTabbedPane tabPane = new JTabbedPane();
+		tabPane.add("Low Stock", orderTable);
+		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(5,5,5,5);
 		c.gridx = 1;
 		c.gridy = 1;
-		this.add(orderTable, c);
+		this.add(tabPane, c);
 		
 		this.pack();
 		this.setVisible(true);
@@ -78,6 +84,10 @@ public class StockManagerFrame extends JFrame{
 	
 	public MenuBarGUI getMenuBarGUI(){
 		return menuBar;
+	}
+	
+	public InfoPanel getInfoPanel(){
+		return infoPanel;
 	}
 
 }

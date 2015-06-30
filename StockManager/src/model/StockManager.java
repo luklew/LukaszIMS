@@ -28,6 +28,16 @@ public class StockManager {
 		}
 	}
 	
+	public Product findProductById(String productID){
+		for(Product pr: product){
+			if(pr.getProductID().equals(productID)){
+				return pr;
+			}
+		}
+		
+		return null;
+	}
+	
 	public ArrayList<Product> getProducts(){
 		return product;
 	}

@@ -26,7 +26,7 @@ public class StockOrderTable extends JPanel{
 		orderTable = new JTable(tableModel);
 		
 		JScrollPane scrollPane = new JScrollPane(orderTable);
-		scrollPane.setPreferredSize(new Dimension(100,100));
+		scrollPane.setPreferredSize(new Dimension(350,430));
 		
 		orderTable.getColumnModel().getColumn(0).setPreferredWidth(100);
 		orderTable.getColumnModel().getColumn(1).setPreferredWidth(300);
@@ -34,6 +34,12 @@ public class StockOrderTable extends JPanel{
 				
 		this.add(scrollPane);		
 		
+	}
+	
+	public void addProductToTable(String productID, String productName, int productQuantity){
+		
+		DefaultTableModel model = (DefaultTableModel) orderTable.getModel();
+		model.addRow(new Object[]{productID, productName, Integer.toString(productQuantity)});
 	}
 
 }
