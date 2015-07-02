@@ -120,10 +120,10 @@ public class InfoPanel extends JPanel{
 		c.gridy = 7;
 		this.add(p_Sim, c);
 		
-		c.insets = new Insets(5,5,5,5);
+		/*c.insets = new Insets(5,5,5,5);
 		c.gridx = 1;
 		c.gridy = 7;
-		this.add(orderStock, c);
+		this.add(orderStock, c);*/
 		
 	}
 
