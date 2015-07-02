@@ -44,8 +44,7 @@ public class StockManagerFrame extends JFrame{
 		c.gridy = 0;
 		c.gridheight = 2 ; 
 		this.add(stockList, c);
-		
-		
+				
 		infoPanel = new InfoPanel();
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(5,5,5,5);

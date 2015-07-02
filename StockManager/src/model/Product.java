@@ -1,5 +1,8 @@
 package model;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 public class Product {
@@ -9,6 +12,10 @@ public class Product {
 	private int productQuantity;
 	private int orderThreshold;
 	private Random rand;
+	private boolean orderRequired;
+	private String lastUpdated;
+	private DateFormat dateFormat;
+	private Date date;
 	
 	public Product(){
 		rand = new Random();
@@ -23,7 +30,7 @@ public class Product {
 		this.productName = productName;
 		this.productQuantity = productQuantity;
 		this.orderThreshold = 20;
-
+		
 	}
 		
 	public String getProductID(){
@@ -57,5 +64,23 @@ public class Product {
 	public void setOrderThreshold(int thres){
 		this.orderThreshold = thres;
 	}
+	
+	public void setOrderRequired(boolean orderReq){
+		this.orderRequired = orderReq;
+	}
+	
+	public boolean getOrderRequired(){
+		return orderRequired;
+	}
+	
+	public void setLastUpdated(){
+		dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		date = new Date();
+		this.lastUpdated = dateFormat.format(date);	
+	}
 
+	public String getLastUpdated(){
+		return lastUpdated;
+	}
+	
 }

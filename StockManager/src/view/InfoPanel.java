@@ -15,7 +15,7 @@ public class InfoPanel extends JPanel{
 	
 	private JLabel productQuantity, productName, productID, productThreshold, orderRequired;
 	private JTextField p_ID, p_Name, p_Quan;
-	private JLabel p_Thresh, p_OrderReq;
+	private JLabel p_Thresh, p_OrderReq, p_Sim;
 	private JButton changeThres, orderStock, changeQuan;
 	
 	public InfoPanel(){
@@ -24,6 +24,7 @@ public class InfoPanel extends JPanel{
 		productID =  new JLabel("ID : ");
 		productThreshold = new JLabel("Warning Threshold : ");
 		orderRequired = new JLabel("Order Required : ");
+		p_Sim = new JLabel("");
 			
 		p_ID = new JTextField(12);
 		p_Name = new JTextField(20);
@@ -115,6 +116,11 @@ public class InfoPanel extends JPanel{
 		this.add(p_OrderReq, c);
 		
 		c.insets = new Insets(5,5,5,5);
+		c.gridx = 0;
+		c.gridy = 7;
+		this.add(p_Sim, c);
+		
+		c.insets = new Insets(5,5,5,5);
 		c.gridx = 1;
 		c.gridy = 7;
 		this.add(orderStock, c);
@@ -147,6 +153,10 @@ public class InfoPanel extends JPanel{
 	
 	public void addQuantityListener(ActionListener al){
 		changeQuan.addActionListener(al);
+	}
+	
+	public void setSimLabel(String msg){
+		p_Sim.setText(msg);
 	}
 	
 }

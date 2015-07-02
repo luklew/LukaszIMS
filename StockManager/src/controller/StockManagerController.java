@@ -4,12 +4,14 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 import view.AddProductFrame;
 import view.InfoPanel;
@@ -42,6 +44,7 @@ public class StockManagerController {
 		
 		menuBar.addProductListener(new AddProductHandler());
 		menuBar.addSaveToFileListener(new AddSaveToFileHandler());
+		menuBar.addSimModeListener(new AddSimModeHandler());
 		
 		infoPanel.addThresholdListener(new AddChangeThresholdHandler());
 		infoPanel.addQuantityListener(new AddChangeQuantityHandler());
@@ -54,34 +57,45 @@ public class StockManagerController {
 			addProductToTable(products.getProductID(), 
 					products.getProductName(), 
 					products.getProductQuantity());
+			
+        	if(products.getOrderThreshold() > products.getProductQuantity())
+        			products.setOrderRequired(true);
+        	else 
+        			products.setOrderRequired(false);
+        	
+        	products.setLastUpdated();
+        	
 		}
 		
 	}
 	
 	public void addProductToLowTable(String productID){
 		boolean exists = false;
-		for(Product pr : model.getProducts()){
 			
-			for(int i = 0; i < orderTable.getOrderTable().getRowCount() ; i++){
-				if(productID.equals(orderTable.getOrderTable().getValueAt(i, 0))){
-					exists = true;
-					System.out.println(exists);
-					System.out.println(orderTable.getOrderTable().getValueAt(i, 0));
-				}
-
+		Product pr = model.findProductById(productID);
+		for(int i = 0; i < orderTable.getOrderTable().getRowCount() ; i++){
+			if(productID.equals(orderTable.getOrderTable().getValueAt(i, 0))){
+				exists = true;
+				System.out.println(exists);
+				System.out.println(orderTable.getOrderTable().getValueAt(i, 0));
 			}
-			if(!exists){
-				if(pr.getOrderThreshold() > pr.getProductQuantity()){
-					orderTable.addProductToTable(pr.getProductID(), pr.getProductName(), pr.getProductQuantity());
-				}	
-			}
-			else if(exists){
-				if(pr.getOrderThreshold() < pr.getProductQuantity()){
-					orderTable.deleteProductFromTable(pr.getProductID());
-				}
-			}
-				
 		}
+		
+		System.out.println(exists);
+		
+		
+		if(!exists){
+			if(pr.getOrderThreshold() > pr.getProductQuantity()){
+				orderTable.addProductToTable(pr.getProductID(), pr.getProductName(), pr.getProductQuantity());
+			}	
+		}
+		else if(exists){
+			if(pr.getOrderThreshold() < pr.getProductQuantity()){
+				orderTable.deleteProductFromTable(pr.getProductID());
+			}
+		}
+			
+		
 	}
 	
 	public void addToLowStockTable(){
@@ -130,10 +144,15 @@ public class StockManagerController {
 	        	if(foundProduct != null){
 	        		infoPanel.setProductThres(Integer.toString(foundProduct.getOrderThreshold()));
 	        		if(foundProduct.getOrderThreshold() > Integer.parseInt(quantity)){
+	        			System.out.println("True");
+	        			foundProduct.setOrderRequired(true);
 	        			infoPanel.setProductOrderReq("Yes");
 	        		}
-	        		else 
+	        		else {
+	        			System.out.println("False");
+	        			foundProduct.setOrderRequired(false);
 	        			infoPanel.setProductOrderReq("No");
+	        		}
 	        	}
 	        	
 	            System.out.println(stockList.getTable().getValueAt(stockList.getTable().getSelectedRow(), 0).toString());
@@ -151,7 +170,6 @@ public class StockManagerController {
 		            Object value, boolean isSelected, boolean hasFocus, int row, int col) {
 
 		        super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
-		        
 		        String prID = (String)table.getModel().getValueAt(row, 0);
 		        String quantity = (String)table.getModel().getValueAt(row, 2);
 		        Product foundPr = model.findProductById(prID);
@@ -165,6 +183,7 @@ public class StockManagerController {
 			            setForeground(table.getForeground()); 
 			        }       
 		        }
+		        
 		        
 		        return this;
 		    }   
@@ -208,7 +227,49 @@ public class StockManagerController {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			// TODO Auto-generated method stub
+			Thread thread = new Thread() {
+		        @Override
+		        public void run() {
+		        	int rowCount;
+					int randRow ; 
+					String currentVal;
+					int randQuan;
+					String id;
+					Product pr;
+					Random rnd = new Random();
+					
+					for(int i = 25 ; i >= 0 ; i--){
+						infoPanel.setSimLabel("Simulation..." + i );
+						rowCount = stockList.getTable().getRowCount();
+						randRow = rnd.nextInt(rowCount);
+						randQuan = rnd.nextInt(50);
+						currentVal = (String) stockList.getTable().getValueAt(randRow, 2);
+						id = (String) stockList.getTable().getValueAt(randRow, 0);
+						
+						stockList.getTable().setValueAt(Integer.toString(Integer.parseInt(currentVal) - randQuan) , randRow, 2);
+						pr = model.findProductById(id);
+						pr.setProductQuantity(Integer.parseInt(currentVal) - randQuan);
+						pr.setLastUpdated();
+						//model.updateQuantity(id, Integer.parseInt(currentVal) - randQuan);
+						
+						System.out.println("new  " + (Integer.parseInt(currentVal)));
+						System.out.println("id " + id);
+						
+						addProductToLowTable(id);
+						stockList.getTable().repaint();
+						
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					
+					infoPanel.setSimLabel("");
+		        }
+		    };
+		    thread.start();
 			
 		}
 		
@@ -250,7 +311,10 @@ public class StockManagerController {
 			 Product pr = model.findProductById(productID);
 			 pr.setOrderThreshold(Integer.parseInt(newThresh));
 			 
-			 addToLowStockTable(); 
+			 addProductToLowTable(productID);
+			 infoPanel.setProductThres(newThresh);
+			 
+			 stockList.getTable().repaint();
 			 
 		}
 		
@@ -272,9 +336,14 @@ public class StockManagerController {
 				if(productID.equals(stockList.getTable().getValueAt(i, 0))){
 					System.out.println(stockList.getTable().getValueAt(i, 0));
 					stockList.getTable().setValueAt(newQuan, i, 2);
+					addProductToLowTable(productID);
+					pr.setLastUpdated();
+					infoPanel.setProductQuantity(newQuan);
 				}
 
 			}
+			
+			stockList.getTable().repaint();
 
 		}
 		

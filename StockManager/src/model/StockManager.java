@@ -3,14 +3,18 @@ package model;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class StockManager {
 
 	private ArrayList<Product> product = new ArrayList<Product>();
 	private DatabaseConnection db;
-	
-
+	private DateFormat dateFormat;
+	private Date date;
+ 
 	public StockManager(){
 			
 		db = new DatabaseConnection();
@@ -26,6 +30,7 @@ public class StockManager {
 					db.getProductNames().get(i), 
 					db.getProductQuantities().get(i));
 		}
+		
 	}
 	
 	public Product findProductById(String productID){
@@ -69,9 +74,9 @@ public class StockManager {
 			int productID;
 			int productQuantity;
 			
-			String report = "Stock Report \r\n";
+			String report = "Stock Report Generated at " + getCurrentTime() + "\r\n";
 			report += "\r\n";
-			report += "|----ID----|------Product Name------|-Quantity-|\r\n";
+			report += "|----ID----|------Product Name------|-Quantity-|-OrderReq?-|------Last Updated-----|\r\n";
 			report += "\r\n";
 			File reportFile = new File("Report.txt");
 			for(int i = 0; i <= product.size() -1; i++){
@@ -105,9 +110,16 @@ public class StockManager {
 				
 				report += "|  ";
 				
-				if(productQuantity < 9){
+				if(productQuantity < 9 && productQuantity >= 0){
 					report +=  productQuantity + "       |";
 				}
+				else if(productQuantity < 0 && productQuantity > -10){
+					report +=  productQuantity + "      |";
+				}
+				else if(productQuantity < -9 && productQuantity > -100){
+					report +=  productQuantity + "     |";
+				}
+				
 				else if(productQuantity > 8 && productQuantity < 100){
 					report +=  product.get(i).getProductQuantity() + "      |" ;
 				}
@@ -117,6 +129,14 @@ public class StockManager {
 				else if(product.get(i).getProductQuantity() > 999 && product.get(i).getProductQuantity() < 10000){
 					report +=  product.get(i).getProductQuantity() + "     |" ;
 				}
+								
+				if(product.get(i).getOrderRequired())
+					report += "    Yes    |";
+				else
+					report += "    No     |";
+				
+				report += "  " + product.get(i).getLastUpdated() + "  |";
+					
 				
 				report += "\r\n";
 				
@@ -133,5 +153,10 @@ public class StockManager {
 		}
 	}
 	
+	public String getCurrentTime(){
+		dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		date = new Date();
+		return dateFormat.format(date);
+	}
 	
 }

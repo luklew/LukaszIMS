@@ -26,13 +26,15 @@ public class StockOrderTable extends JPanel{
 		orderTable = new JTable(tableModel);
 		
 		JScrollPane scrollPane = new JScrollPane(orderTable);
-		scrollPane.setPreferredSize(new Dimension(350,430));
+		scrollPane.setPreferredSize(new Dimension(350,400));
 		
 		orderTable.getColumnModel().getColumn(0).setPreferredWidth(100);
 		orderTable.getColumnModel().getColumn(1).setPreferredWidth(300);
 		orderTable.getColumnModel().getColumn(2).setPreferredWidth(100);
 				
-		this.add(scrollPane);		
+		this.add(scrollPane);
+		
+		
 		
 	}
 	

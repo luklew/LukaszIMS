@@ -59,7 +59,7 @@ public class AddProductPanel extends JPanel{
 		c.gridy = 3;
 		this.add(addProduct, c);
 		
-		cancel = new JButton("Cancel");
+		cancel = new JButton("Close");
 		c.gridx = 1;
 		c.gridy = 3;
 		this.add(cancel, c);
