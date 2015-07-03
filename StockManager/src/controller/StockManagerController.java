@@ -41,6 +41,79 @@ public class StockManagerController {
 		menuBar = view.getMenuBarGUI();
 		infoPanel = view.getInfoPanel();
 		orderTable = view.getOrderTable();
+		/*
+		menuBar.addProductListener(new AddProductHandler());
+		menuBar.addSaveToFileListener(new AddSaveToFileHandler());
+		menuBar.addSimModeListener(new AddSimModeHandler());
+		
+		infoPanel.addThresholdListener(new AddChangeThresholdHandler());
+		infoPanel.addQuantityListener(new AddChangeQuantityHandler());
+		
+		addCellRenderer();
+		addListenerToTable();
+		addToLowStockTable();	
+		*/
+		/*for(Product products : model.getProducts()){
+			stockList.addProductToTable(products.getProductID(), 
+					products.getProductName(), 
+					products.getProductQuantity());
+			
+        	if(products.getOrderThreshold() > products.getProductQuantity())
+        			products.setOrderRequired(true);
+        	else 
+        			products.setOrderRequired(false);
+        	
+        	products.setLastUpdated();
+        	
+		}*/ 
+		
+	}
+	
+}
+
+/*package controller;
+
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
+
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
+import view.AddProductFrame;
+import view.InfoPanel;
+import view.MenuBarGUI;
+import view.StockList;
+import view.StockManagerFrame;
+import view.StockOrderTable;
+import model.Product;
+import model.StockManager;
+
+public class StockManagerController {
+	
+	private StockManager model;
+	private StockManagerFrame view;
+	
+	private StockList stockList;
+	private MenuBarGUI menuBar;
+	private InfoPanel infoPanel;
+	private AddProductFrame addProduct;
+	private StockOrderTable orderTable;
+	
+	public StockManagerController(StockManager model, StockManagerFrame view){
+		this.model = model;
+		this.view = view;
+		
+		stockList = view.getStockList();
+		menuBar = view.getMenuBarGUI();
+		infoPanel = view.getInfoPanel();
+		orderTable = view.getOrderTable();
 		
 		menuBar.addProductListener(new AddProductHandler());
 		menuBar.addSaveToFileListener(new AddSaveToFileHandler());
@@ -349,4 +422,4 @@ public class StockManagerController {
 		
 	}
 
-}
+}*/
