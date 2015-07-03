@@ -53,7 +53,7 @@ public class StockManagerController {
 		addListenerToTable();
 		addToLowStockTable();	
 		*/
-		/*for(Product products : model.getProducts()){
+		for(Product products : model.getProducts()){
 			stockList.addProductToTable(products.getProductID(), 
 					products.getProductName(), 
 					products.getProductQuantity());
@@ -65,7 +65,7 @@ public class StockManagerController {
         	
         	products.setLastUpdated();
         	
-		}*/ 
+		}
 		
 	}
 	

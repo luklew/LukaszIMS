@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -37,6 +39,10 @@ public class StockList extends Scene{
 	private DefaultTableModel tableModel;
 	private TableView<Product> table = new TableView<Product>();
 
+    final static ObservableList<Product> data = FXCollections.observableArrayList();
+
+	
+	
 	@SuppressWarnings("unchecked")
 	public StockList(Parent parent){
 		super(parent);
@@ -46,23 +52,23 @@ public class StockList extends Scene{
  
         table.setEditable(true);
  
-        TableColumn firstNameCol = new TableColumn("Product ID");
-        firstNameCol.setMinWidth(100);
-        firstNameCol.setCellValueFactory(
-                new PropertyValueFactory<Product, String>("firstName"));
+        TableColumn productID = new TableColumn("Product ID");
+        productID.setMinWidth(100);
+        productID.setCellValueFactory(
+                new PropertyValueFactory<Product, String>("productId"));
  
-        TableColumn lastNameCol = new TableColumn("Product Name");
-        lastNameCol.setMinWidth(200);
-        lastNameCol.setCellValueFactory(
-                new PropertyValueFactory<Product, String>("lastName"));
+        TableColumn productName = new TableColumn("Product Name");
+        productName.setMinWidth(200);
+        productName.setCellValueFactory(
+                new PropertyValueFactory<Product, String>("productName"));
  
-        TableColumn emailCol = new TableColumn("Product Quantity");
-        emailCol.setMinWidth(100);
-        emailCol.setCellValueFactory(
-                new PropertyValueFactory<Product, String>("email"));
+        TableColumn productQuantity = new TableColumn("Product Quantity");
+        productQuantity.setMinWidth(100);
+        productQuantity.setCellValueFactory(
+                new PropertyValueFactory<Product, String>("productQuantity"));
  
-       // table.setItems(data);
-        table.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
+        table.setItems(data);
+        table.getColumns().addAll(productID, productName, productQuantity);
  
         final VBox vbox = new VBox();
         vbox.setSpacing(5);
@@ -93,11 +99,10 @@ public class StockList extends Scene{
 		this.add(scrollPane);*/
 	}
 	
-	public void addProductToTable(String productID, String productName, int productQuantity){
-		
-		DefaultTableModel model = (DefaultTableModel) stockListTable.getModel();
-		model.addRow(new Object[]{productID, productName, Integer.toString(productQuantity)});
-	}
+	public static void addProductToTable(String productID, String productName, int productQuantity){
+        data.add(new Product(productID, productName, productQuantity ));
+    }
+
 	 
 	public JTable getTable(){
 		return stockListTable;
