@@ -55,7 +55,7 @@ public class StockList extends Scene{
         TableColumn productID = new TableColumn("Product ID");
         productID.setMinWidth(100);
         productID.setCellValueFactory(
-                new PropertyValueFactory<Product, String>("productId"));
+                new PropertyValueFactory<Product, String>("productID"));
  
         TableColumn productName = new TableColumn("Product Name");
         productName.setMinWidth(200);
@@ -76,27 +76,7 @@ public class StockList extends Scene{
         vbox.getChildren().addAll(label, table);
  
         ((Group) this.getRoot()).getChildren().addAll(vbox);
-		/*
-		tableModel = new DefaultTableModel(columnNames, 0){ 
-			private static final long serialVersionUID = 1L ;
-			public boolean isCellEditable(int row, int column)
-	    	{
-				return false;
-	    	}
-		};
-		stockListTable = new JTable(tableModel);
-		
-		stockListTable.getTableHeader().setReorderingAllowed(false);
-					
-			    
-		JScrollPane scrollPane = new JScrollPane(stockListTable);
-		scrollPane.setPreferredSize(new Dimension(500,700));
-		
-		stockListTable.getColumnModel().getColumn(0).setPreferredWidth(100);
-		stockListTable.getColumnModel().getColumn(1).setPreferredWidth(300);
-		stockListTable.getColumnModel().getColumn(2).setPreferredWidth(100);
-				
-		this.add(scrollPane);*/
+
 	}
 	
 	public static void addProductToTable(String productID, String productName, int productQuantity){

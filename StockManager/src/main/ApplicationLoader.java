@@ -6,12 +6,23 @@ import view.StockManagerFrame;
 import model.StockManager;
 
 public class ApplicationLoader {
+	
+	static Thread ui;
 
 	public static void main(String[] args) {
 		System.out.println("Hello");
 		StockManagerFrame view = new StockManagerFrame();
-		Application.launch(StockManagerFrame.class);//.launch(StockManagerFrame.class);
-		//StockManagerFrame view = new StockManagerFrame(args);
+	
+		
+		ui = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                	Application.launch(StockManagerFrame.class);
+            }
+        });
+		
+		
+		ui.start();
 		
 		StockManager model = new StockManager();
 		
