@@ -53,7 +53,7 @@ public class StockList extends Scene{
         table.setEditable(true);
  
         TableColumn productID = new TableColumn("Product ID");
-        productID.setMinWidth(100);
+        productID.setMinWidth(150);
         productID.setCellValueFactory(
                 new PropertyValueFactory<Product, String>("productID"));
  
@@ -63,10 +63,11 @@ public class StockList extends Scene{
                 new PropertyValueFactory<Product, String>("productName"));
  
         TableColumn productQuantity = new TableColumn("Product Quantity");
-        productQuantity.setMinWidth(100);
+        productQuantity.setMinWidth(150);
         productQuantity.setCellValueFactory(
                 new PropertyValueFactory<Product, String>("productQuantity"));
  
+        table.setPrefSize(500, 950);
         table.setItems(data);
         table.getColumns().addAll(productID, productName, productQuantity);
  
