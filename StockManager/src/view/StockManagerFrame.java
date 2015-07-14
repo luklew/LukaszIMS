@@ -6,10 +6,15 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.MenuBar;
 
+import javax.swing.UIManager.*;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
+import sun.swing.UIAction;
 
 public class StockManagerFrame extends JFrame{
 
@@ -22,6 +27,23 @@ public class StockManagerFrame extends JFrame{
 	private StockOrderTable orderTable;
 
 	public StockManagerFrame(){
+		
+		try {
+		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+		        if ("Nimbus".equals(info.getName())) {
+		            UIManager.setLookAndFeel(info.getClassName());
+		            break;
+		        }
+		    }
+		} catch (UnsupportedLookAndFeelException e) {
+		    // handle exception
+		} catch (ClassNotFoundException e) {
+		    // handle exception
+		} catch (InstantiationException e) {
+		    // handle exception
+		} catch (IllegalAccessException e) {
+		    // handle exception
+		}
 		this.setTitle("Stock Manager");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setPreferredSize(new Dimension(950,800));
