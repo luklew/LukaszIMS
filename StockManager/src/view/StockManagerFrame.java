@@ -7,6 +7,7 @@ import java.awt.Insets;
 import java.awt.MenuBar;
 
 import javax.swing.UIManager.*;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -86,7 +87,7 @@ public class StockManagerFrame extends JFrame{
 		c.gridx = 1;
 		c.gridy = 1;
 		this.add(tabPane, c);
-		
+			
 		this.pack();
 		this.setVisible(true);
 				

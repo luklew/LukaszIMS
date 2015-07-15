@@ -24,8 +24,8 @@ public class DatabaseConnection {
 	
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	static final String DB_URL = "jdbc:mysql://localhost:3306/IMS";//"jdbc:mysql://10.50.15.12/IMS";
-	static final String USER = "root";
-	static final String PASS = "qwerty1";
+	static final String USER = "LL";
+	static final String PASS = "root";
 	
 	private ArrayList<Integer> productID;
 	private ArrayList<String> productName;

@@ -37,6 +37,7 @@ public class StockManagerController {
 	private AddProductFrame addProduct;
 	private StockOrderTable orderTable;
 	private StockLineChart stockLine;
+	private Product foundProduct;
 	
 	public StockManagerController(StockManager model, StockManagerFrame view){
 		this.model = model;
@@ -147,7 +148,7 @@ public class StockManagerController {
 	        	infoPanel.setProductName(productName);
 	        	infoPanel.setProductQuantity(quantity);
 	        	
-	        	Product foundProduct = model.findProductById(productID);
+	        	foundProduct = model.findProductById(productID);
 	        	if(foundProduct != null){
 	        		infoPanel.setProductThres(Integer.toString(foundProduct.getOrderThreshold()));
 	        		if(foundProduct.getOrderThreshold() > Integer.parseInt(quantity)){
@@ -252,12 +253,19 @@ public class StockManagerController {
 						randQuan = rnd.nextInt(50);
 						currentVal = (String) stockList.getTable().getValueAt(randRow, 2);
 						id = (String) stockList.getTable().getValueAt(randRow, 0);
-						
-						stockList.getTable().setValueAt(Integer.toString(Integer.parseInt(currentVal) - randQuan) , randRow, 2);
 						pr = model.findProductById(id);
-						pr.setProductQuantity(Integer.parseInt(currentVal) - randQuan);
+						
+					if((pr.getProductQuantity() - Integer.parseInt(currentVal) - randQuan) > 0 ){
+							stockList.getTable().setValueAt(Integer.toString(Integer.parseInt(currentVal) - randQuan) , randRow, 2);
+						
+							pr.setProductQuantity(Integer.parseInt(currentVal) - randQuan);
+							pr.setLastUpdated();
+					}
+					else{
+						stockList.getTable().setValueAt("0" , randRow, 2);
+						pr.setProductQuantity(0);
 						pr.setLastUpdated();
-						//model.updateQuantity(id, Integer.parseInt(currentVal) - randQuan);
+					}
 						
 						System.out.println("new  " + (Integer.parseInt(currentVal)));
 						System.out.println("id " + id);
@@ -383,7 +391,7 @@ public class StockManagerController {
 			Thread ui;
 			
 			stockLine = new StockLineChart();
-			
+			System.out.println("test");
 			ui = new Thread(new Runnable(){
 				@Override
 				public void run(){
@@ -394,12 +402,14 @@ public class StockManagerController {
 			
 			ui.start();
 			
+			System.out.println(foundProduct.getStockHistory());
+			stockLine.setChartValues(foundProduct.getStockHistory());
+			stockLine.addValues();
 			ArrayList<Integer> test = new ArrayList<Integer>();
 			test.add(10);
 			test.add(10);
 			test.add(10);
 			
-			stockLine.addValsToChart(test);
 		}
 	}
 }

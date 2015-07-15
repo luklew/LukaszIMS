@@ -2,6 +2,7 @@ package model;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
@@ -16,8 +17,10 @@ public class Product {
 	private String lastUpdated;
 	private DateFormat dateFormat;
 	private Date date;
+	private ArrayList<Number> stockHistory; 
 	
 	public Product(){
+		stockHistory = new ArrayList<Number>();
 		rand = new Random();
 		productID = "GN-" + rand.nextInt(1000);
 		productName = "Gnome" + rand.nextInt(1000);
@@ -31,6 +34,11 @@ public class Product {
 		this.productQuantity = productQuantity;
 		this.orderThreshold = 20;
 		
+		rand = new Random();
+		stockHistory = new ArrayList<Number>();
+		for(int i = 0 ; i < 7 ; i++){
+			stockHistory.add(rand.nextInt(100));
+		}
 	}
 		
 	public String getProductID(){
@@ -81,6 +89,10 @@ public class Product {
 
 	public String getLastUpdated(){
 		return lastUpdated;
+	}
+	
+	public ArrayList<Number> getStockHistory(){
+		return stockHistory;
 	}
 	
 }
