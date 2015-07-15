@@ -4,7 +4,10 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Random;
+
+import javafx.application.Application;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -16,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import view.AddProductFrame;
 import view.InfoPanel;
 import view.MenuBarGUI;
+import view.StockLineChart;
 import view.StockList;
 import view.StockManagerFrame;
 import view.StockOrderTable;
@@ -32,6 +36,7 @@ public class StockManagerController {
 	private InfoPanel infoPanel;
 	private AddProductFrame addProduct;
 	private StockOrderTable orderTable;
+	private StockLineChart stockLine;
 	
 	public StockManagerController(StockManager model, StockManagerFrame view){
 		this.model = model;
@@ -41,10 +46,12 @@ public class StockManagerController {
 		menuBar = view.getMenuBarGUI();
 		infoPanel = view.getInfoPanel();
 		orderTable = view.getOrderTable();
+		stockLine = view.getLineChart();
 		
 		menuBar.addProductListener(new AddProductHandler());
 		menuBar.addSaveToFileListener(new AddSaveToFileHandler());
 		menuBar.addSimModeListener(new AddSimModeHandler());
+		menuBar.addStockLineChartListener(new AddLineChartHandler());
 		
 		infoPanel.addThresholdListener(new AddChangeThresholdHandler());
 		infoPanel.addQuantityListener(new AddChangeQuantityHandler());
@@ -280,10 +287,30 @@ public class StockManagerController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			model.addProduct(addProduct.getProductPanel().getProductId(), 
-					addProduct.getProductPanel().getProductName(), 
-					addProduct.getProductPanel().getProductQuantity());
-			getLastAndAddProduct();
+			
+			int exists = 0;
+			
+			for(Product products : model.getProducts()){
+				if(addProduct.getProductPanel().getProductId().equals(products.getProductID())){
+					exists++;
+					JOptionPane.showMessageDialog(view, "Product ID already exsists in table");
+				}
+				else{
+				}
+			}
+			try{
+				  	Integer.parseInt(addProduct.getProductPanel().getProductId());
+			} catch (NumberFormatException e1) {
+					exists++;
+					JOptionPane.showMessageDialog(view, "Product ID must be a number");
+			}
+						
+			if(exists == 0){
+				model.addProduct(addProduct.getProductPanel().getProductId(), 
+						addProduct.getProductPanel().getProductName(), 
+						addProduct.getProductPanel().getProductQuantity());
+				getLastAndAddProduct();
+			}
   
 		}
 		
@@ -348,5 +375,31 @@ public class StockManagerController {
 		}
 		
 	}
+	
+	private class AddLineChartHandler implements ActionListener{
 
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Thread ui;
+			
+			stockLine = new StockLineChart();
+			
+			ui = new Thread(new Runnable(){
+				@Override
+				public void run(){
+				Application.launch(StockLineChart.class);
+				}
+			
+			});
+			
+			ui.start();
+			
+			ArrayList<Integer> test = new ArrayList<Integer>();
+			test.add(10);
+			test.add(10);
+			test.add(10);
+			
+			stockLine.addValsToChart(test);
+		}
+	}
 }

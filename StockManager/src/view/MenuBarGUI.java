@@ -10,8 +10,8 @@ import javax.swing.JMenuItem;
 public class MenuBarGUI extends JMenuBar{
 
 	private static final long serialVersionUID = 1L;
-	private JMenu file;
-	private JMenuItem simMode, addProduct, saveToFile;
+	private JMenu file, charts;
+	private JMenuItem simMode, addProduct, saveToFile, showLineChart;
 	
 
 	public MenuBarGUI(){
@@ -31,6 +31,12 @@ public class MenuBarGUI extends JMenuBar{
 	     file.add(simMode);
 	     
 	     this.add(file);
+	     
+	     charts = new JMenu("Charts");
+	     showLineChart = new JMenuItem("Stock Line Chart");
+	     charts.add(showLineChart);
+	     
+	     this.add(charts);
 		
 	}
 
@@ -44,6 +50,10 @@ public class MenuBarGUI extends JMenuBar{
 	
 	public void addSimModeListener(ActionListener al){
 		simMode.addActionListener(al);
+	}
+	
+	public void addStockLineChartListener(ActionListener al){
+		showLineChart.addActionListener(al);
 	}
 	
 }
