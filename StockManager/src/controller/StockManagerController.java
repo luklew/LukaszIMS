@@ -250,26 +250,23 @@ public class StockManagerController {
 						infoPanel.setSimLabel("Simulation..." + i );
 						rowCount = stockList.getTable().getRowCount();
 						randRow = rnd.nextInt(rowCount);
-						randQuan = rnd.nextInt(50);
+						randQuan = rnd.nextInt(100);
 						currentVal = (String) stockList.getTable().getValueAt(randRow, 2);
 						id = (String) stockList.getTable().getValueAt(randRow, 0);
 						pr = model.findProductById(id);
 						
-					if((pr.getProductQuantity() - Integer.parseInt(currentVal) - randQuan) > 0 ){
+					if((pr.getProductQuantity() - randQuan) > 0 ){
 							stockList.getTable().setValueAt(Integer.toString(Integer.parseInt(currentVal) - randQuan) , randRow, 2);
-						
+							System.out.println((pr.getProductQuantity() - randQuan));
 							pr.setProductQuantity(Integer.parseInt(currentVal) - randQuan);
 							pr.setLastUpdated();
 					}
 					else{
 						stockList.getTable().setValueAt("0" , randRow, 2);
+						System.out.println(pr.getProductName() + " Quantity :  0" );
 						pr.setProductQuantity(0);
 						pr.setLastUpdated();
-					}
-						
-						System.out.println("new  " + (Integer.parseInt(currentVal)));
-						System.out.println("id " + id);
-						
+					}					
 						addProductToLowTable(id);
 						stockList.getTable().repaint();
 						
@@ -391,24 +388,19 @@ public class StockManagerController {
 			Thread ui;
 			
 			stockLine = new StockLineChart();
-			System.out.println("test");
 			ui = new Thread(new Runnable(){
 				@Override
 				public void run(){
 				Application.launch(StockLineChart.class);
 				}
 			
-			});
-			
+			});		
 			ui.start();
-			
+
 			System.out.println(foundProduct.getStockHistory());
 			stockLine.setChartValues(foundProduct.getStockHistory());
 			stockLine.addValues();
-			ArrayList<Integer> test = new ArrayList<Integer>();
-			test.add(10);
-			test.add(10);
-			test.add(10);
+
 			
 		}
 	}
