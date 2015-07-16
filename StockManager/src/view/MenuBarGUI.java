@@ -32,11 +32,11 @@ public class MenuBarGUI extends JMenuBar{
 	     
 	     this.add(file);
 	     
-	     charts = new JMenu("Charts");
+	    /* charts = new JMenu("Charts");
 	     showLineChart = new JMenuItem("Stock Line Chart");
 	     charts.add(showLineChart);
 	     
-	     this.add(charts);
+	     this.add(charts);*/
 		
 	}
 

@@ -404,7 +404,6 @@ public class StockManagerController {
 		public void actionPerformed(ActionEvent e) {
 			orderFrame =  new OrderStockFrame();
 			
-			orderFrame.getOrderPanel().addBrowseListener(new AddBrowseHandler());
 			orderFrame.getOrderPanel().addOrderListener(new AddOrderHandler());
 			orderFrame.getOrderPanel().addCancelListener(new OrderCancelHandler());
 			

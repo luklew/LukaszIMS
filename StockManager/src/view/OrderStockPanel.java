@@ -53,44 +53,22 @@ public class OrderStockPanel extends JPanel{
 		c.gridwidth = 2 ; 
 		this.add(scrollPane, c);
 		
-		saveReport = new JCheckBox("Save Report");
-		savePath = new JTextField(20);
-		savePath.setEnabled(false);
-		
-		c.fill = GridBagConstraints.VERTICAL;
-		c.insets = new Insets(5,5,5,5);
-		c.gridx = 0;
-		c.gridy = 1;
-		c.gridheight = 1 ;
-		c.gridwidth = 1; 
-		this.add(savePath, c);
-		
-		browse = new JButton("Browse");
-		
-		c.fill = GridBagConstraints.VERTICAL;
-		c.insets = new Insets(5,5,5,5);
-		c.gridx = 1;
-		c.gridy = 1;
-		c.gridheight = 1 ; 
-		c.gridwidth = 1; 
-		this.add(browse, c);
-		
 		order = new JButton("Order");
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.insets = new Insets(5,5,5,5);
-		c.gridx = 0;
-		c.gridy = 2;
+		c.gridx = 0 ;
+		c.gridy = 1;
 		c.gridheight = 1 ; 
 		c.gridwidth = 1; 
 		this.add(order, c);
 		
 		cancel = new JButton("Cancel");
 		
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.VERTICAL;
 		c.insets = new Insets(5,5,5,5);
 		c.gridx = 1;
-		c.gridy = 2;
+		c.gridy = 1;
 		c.gridheight = 1 ; 
 		c.gridwidth = 1; 
 		this.add(cancel, c);
@@ -116,10 +94,6 @@ public class OrderStockPanel extends JPanel{
 
 	public JTable getTable(){
 		return orderTable;
-	}
-	
-	public void addBrowseListener(ActionListener al){
-		browse.addActionListener(al);
 	}
 	
 	public void addOrderListener(ActionListener al){

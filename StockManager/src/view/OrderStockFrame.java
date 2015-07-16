@@ -11,7 +11,8 @@ public class OrderStockFrame extends JFrame{
 	public OrderStockFrame(){
 		this.setTitle("Order Stock");
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.setPreferredSize(new Dimension(450,650));
+		this.setPreferredSize(new Dimension(450,600));
+		//this.setResizable(false);
 	
 		orderStock = new OrderStockPanel();
 		this.add(orderStock);
