@@ -22,7 +22,6 @@ import view.AddProductFrame;
 import view.InfoPanel;
 import view.MenuBarGUI;
 import view.OrderStockFrame;
-import view.StockLineChart;
 import view.StockList;
 import view.StockManagerFrame;
 import view.StockOrderTable;
@@ -39,7 +38,6 @@ public class StockManagerController {
 	private InfoPanel infoPanel;
 	private AddProductFrame addProduct;
 	private StockOrderTable orderTable;
-	private StockLineChart stockLine;
 	private Product foundProduct;
 	private OrderStockFrame orderFrame;
 	
