@@ -67,7 +67,7 @@ public class StockManager {
 		
 	}
 	
-	public void saveReportToFile(){
+	public void saveReportToFile(File saveLoc){
 		try{
 			int numOfChars;
 			int totalSpacesLeft;
@@ -78,7 +78,6 @@ public class StockManager {
 			report += "\r\n";
 			report += "|----ID----|------Product Name------|-Quantity-|-OrderReq?-|------Last Updated-----|\r\n";
 			report += "\r\n";
-			File reportFile = new File("Report.txt");
 			for(int i = 0; i <= product.size() -1; i++){
 				totalSpacesLeft = 20 ;
 				productID = Integer.parseInt(product.get(i).getProductID());
@@ -145,7 +144,93 @@ public class StockManager {
 			}
 			
 			System.out.println(report);
-			FileWriter fw = new FileWriter(reportFile);
+			FileWriter fw = new FileWriter(saveLoc + ".txt");
+			fw.write(report);
+			fw.close();
+		}catch (IOException e){
+			e.printStackTrace();
+		}
+	}
+	
+	public void saveOrderReportToFile(File saveLoc){
+		try{
+			int numOfChars;
+			int totalSpacesLeft;
+			int productID;
+			int productQuantity;
+			
+			String report = "Order Report Generated at " + getCurrentTime() + "\r\n";
+			report += "\r\n";
+			report += "|----ID----|------Product Name------|-Quantity-|-OrderReq?-|------Last Updated-----|\r\n";
+			report += "\r\n";
+			for(int i = 0; i <= product.size() -1; i++){
+				
+				totalSpacesLeft = 20 ;
+				productID = Integer.parseInt(product.get(i).getProductID());
+				productQuantity = product.get(i).getProductQuantity();
+
+				if(productID < 10){
+					report += "|  " + product.get(i).getProductID() + "       |";
+				}
+				else if(productID  > 9 && productID < 100){
+					report += "|  " + product.get(i).getProductID() + "      |";
+				}
+				else if(productID > 99 && productID < 1000){
+					report += "|  " + product.get(i).getProductID() + "     |";
+				}
+				else if(productID > 999 && productID < 10000){
+					report += "|  " + product.get(i).getProductID() + "    |";
+				}
+				
+
+				
+				report += "   " + product.get(i).getProductName() ;
+				
+				numOfChars = product.get(i).getProductName().length();			
+				totalSpacesLeft = totalSpacesLeft - numOfChars;
+				
+				for(int whiteSpace = 0; whiteSpace <= totalSpacesLeft; whiteSpace++){
+					report += " ";
+				}
+				
+				report += "|  ";
+				
+				if(productQuantity < 9 && productQuantity >= 0){
+					report +=  productQuantity + "       |";
+				}
+				else if(productQuantity < 0 && productQuantity > -10){
+					report +=  productQuantity + "      |";
+				}
+				else if(productQuantity < -9 && productQuantity > -100){
+					report +=  productQuantity + "     |";
+				}
+				
+				else if(productQuantity > 8 && productQuantity < 100){
+					report +=  product.get(i).getProductQuantity() + "      |" ;
+				}
+				else if(product.get(i).getProductQuantity() > 99 && product.get(i).getProductQuantity() < 1000){
+					report +=  product.get(i).getProductQuantity() + "     |" ;
+				}
+				else if(product.get(i).getProductQuantity() > 999 && product.get(i).getProductQuantity() < 10000){
+					report +=  product.get(i).getProductQuantity() + "     |" ;
+				}
+								
+				if(product.get(i).getOrderRequired())
+					report += "    Yes    |";
+				else
+					report += "    No     |";
+				
+				report += "  " + product.get(i).getLastUpdated() + "  |";
+					
+				
+				report += "\r\n";
+				
+				report += "\r\n";
+
+			}
+			
+			System.out.println(report);
+			FileWriter fw = new FileWriter(saveLoc + ".txt");
 			fw.write(report);
 			fw.close();
 		}catch (IOException e){
@@ -159,4 +244,13 @@ public class StockManager {
 		return dateFormat.format(date);
 	}
 	
+	public boolean isNumber(String val){
+		try{
+			Integer.parseInt(val);
+			return true;
+		}catch(NumberFormatException nfe){
+			return false;
+		}
+		
+	}
 }

@@ -4,11 +4,13 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 
 import javafx.application.Application;
 
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
@@ -19,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 import view.AddProductFrame;
 import view.InfoPanel;
 import view.MenuBarGUI;
+import view.OrderStockFrame;
 import view.StockLineChart;
 import view.StockList;
 import view.StockManagerFrame;
@@ -38,6 +41,7 @@ public class StockManagerController {
 	private StockOrderTable orderTable;
 	private StockLineChart stockLine;
 	private Product foundProduct;
+	private OrderStockFrame orderFrame;
 	
 	public StockManagerController(StockManager model, StockManagerFrame view){
 		this.model = model;
@@ -47,15 +51,16 @@ public class StockManagerController {
 		menuBar = view.getMenuBarGUI();
 		infoPanel = view.getInfoPanel();
 		orderTable = view.getOrderTable();
-		stockLine = view.getLineChart();
+		orderFrame = view.getOrderFrame();
 		
 		menuBar.addProductListener(new AddProductHandler());
 		menuBar.addSaveToFileListener(new AddSaveToFileHandler());
 		menuBar.addSimModeListener(new AddSimModeHandler());
-		menuBar.addStockLineChartListener(new AddLineChartHandler());
 		
 		infoPanel.addThresholdListener(new AddChangeThresholdHandler());
 		infoPanel.addQuantityListener(new AddChangeQuantityHandler());
+		
+		orderTable.addOrderStockListener(new AddOrderStockHanlder());
 		
 		addCellRenderer();
 		addListenerToTable();
@@ -226,7 +231,11 @@ public class StockManagerController {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			model.saveReportToFile();
+			JFileChooser fileChooser = new JFileChooser();
+			if (fileChooser.showSaveDialog(orderFrame) == JFileChooser.APPROVE_OPTION) {
+			  File file = fileChooser.getSelectedFile();
+			  model.saveReportToFile(file);
+			}
 		}
 		
 	}
@@ -337,16 +346,24 @@ public class StockManagerController {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			
 			 String newThresh = JOptionPane.showInputDialog(view, "Enter new warning threshold:");
-			 String productID = stockList.getTable().getValueAt(stockList.getTable().getSelectedRow(), 0).toString();
 			 
-			 Product pr = model.findProductById(productID);
-			 pr.setOrderThreshold(Integer.parseInt(newThresh));
+			 if(newThresh != null){
+				 if(model.isNumber(newThresh)){
+					 String productID = stockList.getTable().getValueAt(stockList.getTable().getSelectedRow(), 0).toString();
 			 
-			 addProductToLowTable(productID);
-			 infoPanel.setProductThres(newThresh);
+					 Product pr = model.findProductById(productID);
+					 pr.setOrderThreshold(Integer.parseInt(newThresh));
 			 
-			 stockList.getTable().repaint();
+					 addProductToLowTable(productID);
+					 infoPanel.setProductThres(newThresh);
+			 
+					 stockList.getTable().repaint();
+				 }else {
+					 JOptionPane.showMessageDialog(view, "Threshold can only be a number");
+				 }
+			 }
 			 
 		}
 		
@@ -357,51 +374,129 @@ public class StockManagerController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String newQuan = JOptionPane.showInputDialog(view, "Enter new quantity:");
-			
-			String productID = stockList.getTable().getValueAt(stockList.getTable().getSelectedRow(), 0).toString();
+			if(newQuan != null){
+				if(model.isNumber(newQuan)){
+						
+					String productID = stockList.getTable().getValueAt(stockList.getTable().getSelectedRow(), 0).toString();
 			 
-			Product pr = model.findProductById(productID);
-			pr.setProductQuantity(Integer.parseInt(newQuan));
-			model.updateQuantity(productID, Integer.parseInt(newQuan));
+					Product pr = model.findProductById(productID);
+					pr.setProductQuantity(Integer.parseInt(newQuan));
+					model.updateQuantity(productID, Integer.parseInt(newQuan));
 			
-			for(int i = 0; i < stockList.getTable().getRowCount() ; i++){
-				if(productID.equals(stockList.getTable().getValueAt(i, 0))){
-					System.out.println(stockList.getTable().getValueAt(i, 0));
-					stockList.getTable().setValueAt(newQuan, i, 2);
-					addProductToLowTable(productID);
-					pr.setLastUpdated();
-					infoPanel.setProductQuantity(newQuan);
+					for(int i = 0; i < stockList.getTable().getRowCount() ; i++){
+						if(productID.equals(stockList.getTable().getValueAt(i, 0))){
+							System.out.println(stockList.getTable().getValueAt(i, 0));
+							stockList.getTable().setValueAt(newQuan, i, 2);
+							addProductToLowTable(productID);
+							pr.setLastUpdated();
+							infoPanel.setProductQuantity(newQuan);
+						}
+
+					}
+			
+					stockList.getTable().repaint();
+				
+				}else {
+					JOptionPane.showMessageDialog(view, "Quantity can only be a number");
 				}
-
 			}
-			
-			stockList.getTable().repaint();
-
 		}
 		
 	}
 	
-	private class AddLineChartHandler implements ActionListener{
+	private class AddOrderStockHanlder implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Thread ui;
+			orderFrame =  new OrderStockFrame();
 			
-			stockLine = new StockLineChart();
-			ui = new Thread(new Runnable(){
-				@Override
-				public void run(){
-				Application.launch(StockLineChart.class);
-				}
+			orderFrame.getOrderPanel().addBrowseListener(new AddBrowseHandler());
+			orderFrame.getOrderPanel().addOrderListener(new AddOrderHandler());
+			orderFrame.getOrderPanel().addCancelListener(new OrderCancelHandler());
 			
-			});		
-			ui.start();
+			
+			boolean exists = false;
+			for(Product pr : model.getProducts()){
+				
+				for(int i = 0; i < orderFrame.getOrderPanel().getTable().getRowCount() ; i++){
+					if(pr.getProductID().equals(orderFrame.getOrderPanel().getTable().getValueAt(i, 0))){
+						exists = true;
+						System.out.println(exists);
+						System.out.println(orderFrame.getOrderPanel().getTable().getValueAt(i, 0));
+					}
 
-			System.out.println(foundProduct.getStockHistory());
-			stockLine.setChartValues(foundProduct.getStockHistory());
-			stockLine.addValues();
+				}
+				if(!exists){
+					if(pr.getOrderThreshold() > pr.getProductQuantity()){
+						orderFrame.getOrderPanel().addProductToTable(pr.getProductID(), pr.getProductName(),(pr.getProductQuantity() + (pr.getOrderThreshold() - pr.getProductQuantity()) * 2));
+					}	
+				}
+				else if(exists){
+					if(pr.getOrderThreshold() < pr.getProductQuantity()){
+						orderFrame.getOrderPanel().deleteProductFromTable(pr.getProductID());
+					}
+				}
+					
+			}
+			
+		}
+		
+	}
+	
+	private class AddBrowseHandler implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			JFileChooser fileChooser = new JFileChooser();
+			if (fileChooser.showSaveDialog(orderFrame) == JFileChooser.APPROVE_OPTION) {
+			  File file = fileChooser.getSelectedFile();
+			  // save to file
+			}
+		}
+		
+	}
+	
+	private class AddOrderHandler implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			for(int i = 0; i < orderFrame.getOrderPanel().getTable().getRowCount(); i++){
+				
+				String productID = orderFrame.getOrderPanel().getTable().getValueAt(i, 0).toString();
+				System.out.println(productID);
+				Product pr = model.findProductById(productID);
+				String newQuan = Integer.toString(pr.getProductQuantity() + ((pr.getOrderThreshold() - pr.getProductQuantity()) * 2));
+				pr.setProductQuantity(Integer.parseInt(newQuan));
+				model.updateQuantity(productID, Integer.parseInt(newQuan));
+			
+				for(int index = 0; index < stockList.getTable().getRowCount() ; index++){
+					System.out.println(index);
+					if(productID.equals(stockList.getTable().getValueAt(index, 0))){
+						stockList.getTable().setValueAt(newQuan, index, 2);
+						addProductToLowTable(productID);
+						pr.setLastUpdated();
+					}
+
+				}
+				
+				stockList.getTable().repaint();
+			}
+			
+			orderFrame.dispose();
 
 			
 		}
+		
+	}
+	
+	private class OrderCancelHandler implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			orderFrame.dispose();
+			
+		}
+		
 	}
 }
