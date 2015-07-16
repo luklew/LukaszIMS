@@ -26,7 +26,6 @@ public class StockManagerFrame extends JFrame{
 	private InfoPanel infoPanel;
 	private AddProductFrame addProduct;
 	private StockOrderTable orderTable;
-	private StockLineChart stockLineChart;
 	private OrderStockFrame orderFrame;
 	
 	public StockManagerFrame(){
@@ -117,11 +116,7 @@ public class StockManagerFrame extends JFrame{
 	public StockOrderTable getOrderTable(){
 		return orderTable;
 	}
-	
-	public StockLineChart getLineChart(){
-		return stockLineChart;
-	}
-	
+		
 	public OrderStockFrame getOrderFrame(){
 		return orderFrame;
 	}
