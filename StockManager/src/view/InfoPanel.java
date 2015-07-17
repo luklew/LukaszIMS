@@ -11,6 +11,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/*
+ * This panel shows additional information about the selected product 
+ * in the stock list table.
+ */
+
 public class InfoPanel extends JPanel{
 	
 	private JLabel productQuantity, productName, productID, productThreshold, orderRequired;

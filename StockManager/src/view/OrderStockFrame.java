@@ -4,6 +4,11 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
+/*
+ * This class creates a new window which displays 
+ * a table which contains products that need to be ordered.
+ */
+
 public class OrderStockFrame extends JFrame{
 	
 	private OrderStockPanel orderStock;

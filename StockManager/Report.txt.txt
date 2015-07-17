@@ -1,0 +1,70 @@
+Stock Report Generated at 17/07/2015 10:57:24
+
+|----ID----|------Product Name------|-Quantity-|-OrderReq?-|------Last Updated-----|
+
+|  1       |   Hippy Gnome          |  10      |    No     |  17/07/2015 10:56:40  |
+
+|  2       |   King Gnome           |  35      |    No     |  17/07/2015 10:56:35  |
+
+|  3       |   Queen Gnome          |  65      |    No     |  17/07/2015 10:56:35  |
+
+|  4       |   Nuclear Gnome        |  40      |    No     |  17/07/2015 10:56:35  |
+
+|  5       |   Biohazard Gnome      |  125     |    No     |  17/07/2015 10:56:35  |
+
+|  6       |   Obama Gnome          |  40      |    No     |  17/07/2015 10:56:35  |
+
+|  7       |   Redneck Gnome        |  10      |    Yes    |  17/07/2015 10:56:35  |
+
+|  8       |   Business Gnome       |  33      |    No     |  17/07/2015 10:56:35  |
+
+|  9       |   Chav Gnome           |  40      |    No     |  17/07/2015 10:56:35  |
+
+|  10      |   Beiber Gnome         |  38      |    No     |  17/07/2015 10:56:35  |
+
+|  11      |   Potter Gnome         |  63      |    No     |  17/07/2015 10:56:35  |
+
+|  12      |   Wolverine Gnome      |  15      |    No     |  17/07/2015 10:56:43  |
+
+|  13      |   Iron Man Gnome       |  40      |    No     |  17/07/2015 10:56:35  |
+
+|  14      |   Voldemort Gnome      |  40      |    No     |  17/07/2015 10:56:35  |
+
+|  15      |   Jedi Gnome           |  40      |    No     |  17/07/2015 10:56:35  |
+
+|  16      |   Sith Gnome           |  40      |    No     |  17/07/2015 10:56:35  |
+
+|  17      |   Picard Gnome         |  40      |    No     |  17/07/2015 10:56:35  |
+
+|  18      |   Angel Gnome          |  100     |    No     |  17/07/2015 10:56:35  |
+
+|  19      |   Gun Gnome            |  10      |    Yes    |  17/07/2015 10:56:35  |
+
+|  20      |   Big Gun Gnome        |  40      |    No     |  17/07/2015 10:56:35  |
+
+|  21      |   Bazooka Gnome        |  40      |    No     |  17/07/2015 10:56:35  |
+
+|  22      |   Tank Gnome           |  40      |    No     |  17/07/2015 10:56:35  |
+
+|  23      |   Police Gnome         |  1       |    No     |  17/07/2015 10:56:46  |
+
+|  24      |   Other Gnome          |  30      |    No     |  17/07/2015 10:56:35  |
+
+|  25      |   Greek Gnome          |  40      |    No     |  17/07/2015 10:56:35  |
+
+|  26      |   Roman Gnome          |  40      |    No     |  17/07/2015 10:56:35  |
+
+|  27      |   Chewbacca Gnome      |  40      |    No     |  17/07/2015 10:56:35  |
+
+|  28      |   Time Lord Gnome      |  6       |    No     |  17/07/2015 10:56:48  |
+
+|  29      |   Samurai Gnome        |  40      |    No     |  17/07/2015 10:56:35  |
+
+|  30      |   Demon Gnome          |  40      |    No     |  17/07/2015 10:56:35  |
+
+|  31      |   Insane Gnome         |  39      |    No     |  17/07/2015 10:56:35  |
+
+|  32      |   Australian Gnome     |  68      |    No     |  17/07/2015 10:56:35  |
+
+|  33      |   French Gnome         |  40      |    No     |  17/07/2015 10:56:35  |
+

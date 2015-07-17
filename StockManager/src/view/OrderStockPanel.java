@@ -14,6 +14,12 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+/*
+ * This class sets the layout of the Order Stock window. Adds 
+ * a new table, and contains methods to add new Products to that
+ * table.
+ */
+
 public class OrderStockPanel extends JPanel{
 	
 	private JTable orderTable;

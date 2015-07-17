@@ -6,6 +6,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
+/*
+ *This class hold product attributes, values are taken from the
+ *database, initially the threshold is set to 20 for each product 
+ */
+
 public class Product {
 	
 	private String productID;

@@ -17,6 +17,12 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import sun.swing.UIAction;
 
+/*
+ * This is the main view class, which is the main window of the application,
+ * it contains methods which return references of other panels back to the controller
+ * it also sets a layout in terms of where to place  those panels.
+ */
+
 public class StockManagerFrame extends JFrame{
 
 	private static final long serialVersionUID = 1L;

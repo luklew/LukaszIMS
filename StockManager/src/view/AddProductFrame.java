@@ -5,6 +5,11 @@ import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 
+/*
+ * This class creates a new window where user can add
+ * a new product to the table and database.
+ */
+
 public class AddProductFrame extends JFrame{
 	
 	private AddProductPanel addProductPanel;

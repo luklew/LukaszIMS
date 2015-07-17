@@ -24,6 +24,11 @@ import view.StockOrderTable;
 import model.Product;
 import model.StockManager;
 
+/*
+ * This class contains all Action Listeners, communicates with the model
+ * and modifies the view. 
+ */
+
 public class StockManagerController {
 	
 	private StockManager model;

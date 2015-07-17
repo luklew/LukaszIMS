@@ -13,6 +13,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+/*
+ * This class creates a new table and inserts products with quantity
+ * below their thershold.
+ */
+
 public class StockOrderTable extends JPanel{
 	
 	private JTable orderTable;

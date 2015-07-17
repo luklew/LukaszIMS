@@ -7,6 +7,10 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+/*
+ * This class contains the menubar.
+ */
+
 public class MenuBarGUI extends JMenuBar{
 
 	private static final long serialVersionUID = 1L;

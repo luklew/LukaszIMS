@@ -14,6 +14,11 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
+/*
+ * This class adds a new table to the main window,
+ * contains methods to add/delete products to/from the table.
+ */
+
 public class StockList extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
